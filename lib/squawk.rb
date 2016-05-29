@@ -1,5 +1,3 @@
 require "squawk/version"
-
-module Squawk
-  # Your code goes here...
-end
+require "squawk/exceptions"
+require 'squawk/core_ext/kernel'
