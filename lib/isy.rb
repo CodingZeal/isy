@@ -18,7 +18,10 @@ module Isy
       evaluation ||= lambda { |s| s.is_a? args[0] }
 
       unless evaluation.call(subject)
-        raise Isy::ArgumentTypeMismatch, subject
+        raise Isy::ArgumentTypeMismatch.new(
+          subject: subject,
+          caller_method: caller_locations(1,1)[0].label
+        )
       end
     end
   end
