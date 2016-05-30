@@ -9,8 +9,18 @@ def fullname segments=[]
 end
 ```
 
-Setting aside that an issue of this type can be a sign of an
-architectural problem, `isy` is meant to clean this up.
+Setting aside that an issue of this type could be a sign of a greater
+architectural problem, `Isy` takes a declarative approach to solving the problem.
+Instead of dictating the contraints (and resulting response) to each argument type,
+you can leverage Isy's simple interface:
+
+## Usage
+
+The primary use of Isy is through the `isy` method, which is included into Object upon initialization
+
+You can call isy from any point, but it's intended use is to be treated like a "guard clause" to
+assert method argument types before those arguments are used (and potentially wreak havoc
+throughout the implementation:
 
 ```ruby
 def fullname segments=[]
@@ -19,9 +29,25 @@ def fullname segments=[]
 end
 ```
 
-`Isy` takes a declarative approach to solving the problem.  Instead of
-dictating the contraints (and resulting response) to each argument type,
-you can levelage Isy's simple interface.
+The first argument is the subject of the test (i.e. what should match the proceeding assertion)
+The second argument is the type.
+
+If the subject doesn't match the provided type, then it raises a formatted exception describing
+what argument *value* was a type mismatch (as an `Isy::ArgumentTypeMismatch` exception).
+
+## Usage with an operation
+
+Optionally, in place of a type as the second argument, you can pass a block, and perform
+a more complex comparison operation:
+
+```ruby
+  def fullname segments
+    isy segments { |seg| seg.length == 3 }
+  end
+```
+
+As illustrated above, `isy` yields to the operation the first argument (segments).  The expectation
+is that the value returned by the operation (block) is a boolen (true => passes, false => failed).
 
 ## Performance
 
