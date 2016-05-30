@@ -19,6 +19,24 @@ def fullname segments=[]
 end
 ```
 
+`Isy` takes a declarative approach to solving the problem.  Instead of
+dictating the contraints (and resulting response) to each argument type,
+you can levelage Isy's simple interface.
+
+## Performance
+
+It's not great against a more "native" implementation; but, where you lose a little
+in performance, you (may) gain in an ability to quickly reason about the
+code.
+
+A native implementation is incredibly light (see above): no additional dependencies
+and logistical overhead.  Using `Isy` you're introducing an additional dependency and
+better support for evaluation routines (by providing a block).
+
+To run a comparison benchmark:
+
+`$ ruby spec/benchmark.rb`
+
 ## Installation
 
 Add this line to your application's Gemfile:
