@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in squawk.gemspec
+# Specify your gem's dependencies in isy.gemspec
 gemspec
