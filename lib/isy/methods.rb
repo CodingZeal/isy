@@ -40,14 +40,49 @@ module Isy
           'Object#isy requires either a type or evaluation block'
       end
 
-      evaluation ||= lambda { |s| s.is_a? args[0] }
+      evaluation ||= ->(s) { s.is_a? args[0] }
+      is_valid = !!(evaluation.call subject)
 
-      unless evaluation.call(subject)
+      unless is_valid
         raise Isy::ArgumentTypeMismatch.new(
           subject: subject,
           caller_method: caller_locations(1,1)[0].label
         )
       end
+
+      is_valid
+    end
+
+    # Isy::Methods#isy?
+    #
+    # == Usage
+    #
+    # The implementation follows the same workflow as `isy` with one exception (pun intended): returns a boolen.
+    #
+    #   def fullname segments
+    #     if isy? segments, Array
+    #       # passes
+    #     end
+    #   end
+    #
+    # If the subject doesn't match the provided type, then it returns false
+    #
+    # == Usage with an operation
+    #
+    # Optionally, in place of a type as the second argument, you can pass a block, and perform
+    # a more complex comparison operation:
+    #
+    #   def fullname segments
+    #     isy? segments { |seg| seg.length == 3 }
+    #   end
+    #
+    # As illustrated above, `isy?` yields to the operation the first argument (segments).  The expectation
+    # is that the value returned by the operation (block) is a boolen (true => passes, false => failed).
+    #
+    def isy? subject, *args, &evaluation
+      isy subject, *args, &evaluation
+    rescue ArgumentTypeMismatch
+      false
     end
   end
 end

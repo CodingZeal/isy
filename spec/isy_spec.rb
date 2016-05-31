@@ -40,5 +40,23 @@ describe Isy do
       end
     end
   end
+
+  describe '#isy?' do
+    subject { isy? test_value, type }
+
+    context 'when the subject passes' do
+      let(:test_value) { 'test value' }
+      let(:type) { String }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'when the subject fails' do
+      let(:test_value) { 'test value' }
+      let(:type) { Hash }
+
+      it { is_expected.to eq false }
+    end
+  end
 end
 
