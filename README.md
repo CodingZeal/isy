@@ -7,7 +7,7 @@ Guard clauses for argument type assertions can be messy:
 
 ```ruby
 def fullname segments=[]
-  raise 'User#fullname expects 'segments' to be an Array' if segments.is_a? Array
+  raise ArgumentError, 'User#fullname expects 'segments' to be an Array' if segments.is_a? Array
   # ...
 end
 ```
@@ -46,6 +46,7 @@ a more complex comparison operation:
 ```ruby
   def fullname segments
     isy segments { |seg| seg.length == 3 }
+    # ...
   end
 ```
 
