@@ -35,22 +35,12 @@ module Isy
     # is that the value returned by the operation (block) is a boolen (true => passes, false => failed).
     #
     def isy subject, *args, &evaluation
-      if evaluation.nil? && args[0].nil?
-        raise ArgumentError,
-          'Object#isy requires either a type or evaluation block'
-      end
-
-      evaluation ||= ->(s) { s.is_a? args[0] }
-      is_valid = !!(evaluation.call subject)
-
-      unless is_valid
+      unless isy? subject, *args, &evaluation
         raise Isy::ArgumentTypeMismatch.new(
           subject: subject,
           caller_method: caller_locations(1,1)[0].label
         )
       end
-
-      is_valid
     end
 
     # Isy::Methods#isy?
@@ -80,9 +70,13 @@ module Isy
     # is that the value returned by the operation (block) is a boolen (true => passes, false => failed).
     #
     def isy? subject, *args, &evaluation
-      isy subject, *args, &evaluation
-    rescue ArgumentTypeMismatch
-      false
+      if evaluation.nil? && args[0].nil?
+        raise ArgumentError,
+          'Object#isy requires either a type or evaluation block'
+      end
+
+      evaluation ||= args[0]
+      evaluation === subject
     end
   end
 end
