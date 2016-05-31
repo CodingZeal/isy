@@ -34,23 +34,13 @@ module Isy
     # As illustrated above, `isy` yields to the operation the first argument (segments).  The expectation
     # is that the value returned by the operation (block) is a boolen (true => passes, false => failed).
     #
-    def isy subject, *args, &evaluation
-      if evaluation.nil? && args[0].nil?
-        raise ArgumentError,
-          'Object#isy requires either a type or evaluation block'
-      end
-
-      evaluation ||= ->(s) { s.is_a? args[0] }
-      is_valid = !!(evaluation.call subject)
-
-      unless is_valid
+    def isy subject, evaluation=nil, &block
+      unless isy? subject, evaluation, &block
         raise Isy::ArgumentTypeMismatch.new(
           subject: subject,
           caller_method: caller_locations(1,1)[0].label
         )
       end
-
-      is_valid
     end
 
     # Isy::Methods#isy?
@@ -79,10 +69,15 @@ module Isy
     # As illustrated above, `isy?` yields to the operation the first argument (segments).  The expectation
     # is that the value returned by the operation (block) is a boolen (true => passes, false => failed).
     #
-    def isy? subject, *args, &evaluation
-      isy subject, *args, &evaluation
-    rescue ArgumentTypeMismatch
-      false
+    def isy? subject, evaluation=nil, &block
+      tester = block || evaluation
+
+      unless tester
+        raise ArgumentError,
+          'Object#isy requires either a type or evaluation block'
+      end
+
+      tester === subject
     end
   end
 end

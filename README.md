@@ -1,4 +1,5 @@
 # Isy
+*(pronounced like 'izzy')*
 
 [![Build Status](https://travis-ci.org/acuppy/isy.svg?branch=master)](https://travis-ci.org/acuppy/isy)
 [![Code Climate](https://codeclimate.com/github/acuppy/isy/badges/gpa.svg)](https://codeclimate.com/github/acuppy/isy)
@@ -33,7 +34,7 @@ end
 ```
 
 The first argument is the subject of the test (i.e. what should match the proceeding assertion)
-The second argument is the type.
+The second argument is the class, `Range`, `Regexp` or any object (type) which responds to `===`.
 
 If the subject doesn't match the provided type, then it raises a formatted exception describing
 what argument *value* was a type mismatch (as an `Isy::ArgumentTypeMismatch` exception).
