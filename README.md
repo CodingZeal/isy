@@ -38,20 +38,36 @@ The second argument is the type.
 If the subject doesn't match the provided type, then it raises a formatted exception describing
 what argument *value* was a type mismatch (as an `Isy::ArgumentTypeMismatch` exception).
 
+Alternatively, you can use the predicate version for type assertion:
+
+```ruby
+def fullname segments=[]
+  if isy? segments, Array
+    # passes
+  end
+end
+```
+
+In the previous example, the interface is the same: subject, arguments,
+optional block.  The difference is that if the assertion fails, it will
+catch the `Isy::ArgumentTypeMismatch` exception and return `false`.
+
 ## Usage with an operation
 
 Optionally, in place of a type as the second argument, you can pass a block, and perform
 a more complex comparison operation:
 
 ```ruby
-  def fullname segments
-    isy segments { |seg| seg.length == 3 }
-    # ...
-  end
+def fullname segments
+  isy segments { |seg| seg.length == 3 }
+  # ...
+end
 ```
 
 As illustrated above, `isy` yields to the operation the first argument (segments).  The expectation
 is that the value returned by the operation (block) is a boolen (true => passes, false => failed).
+
+*Note: predicate version has the same support*
 
 ## Performance
 
