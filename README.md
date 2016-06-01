@@ -1,8 +1,8 @@
 # Isy
 *(pronounced like 'izzy')*
 
-[![Build Status](https://travis-ci.org/acuppy/isy.svg?branch=master)](https://travis-ci.org/acuppy/isy)
-[![Code Climate](https://codeclimate.com/github/acuppy/isy/badges/gpa.svg)](https://codeclimate.com/github/acuppy/isy)
+[![Build Status](https://travis-ci.org/acuppy/isy.svg?branch=master)](https://travis-ci.org/CodingZeal/isy)
+[![Code Climate](https://codeclimate.com/github/acuppy/isy/badges/gpa.svg)](https://codeclimate.com/github/CodingZeal/isy)
 
 Guard clauses for argument type assertions can be messy:
 
