@@ -102,8 +102,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/isy. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
-
 ## License
 
-Copyright (c) 2016 Adam Cuppy, Zeal (https://codingzeal.com)
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+Authored by the Engineering Team of [Coding ZEAL](https://codingzeal.com?utm_source=github)
+
+Copyright (c) 2017 Zeal, LLC.  Licensed under the [MIT license](https://opensource.org/licenses/MIT).
